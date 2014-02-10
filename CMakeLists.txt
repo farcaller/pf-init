@@ -3,9 +3,9 @@ project(pf-init)
 
 set(VERSION "0.0.1")
 
-add_definitions(-Ofast -std=c99 -fPIC -W -Wall -pedantic -D_GNU_SOURCE)
+add_definitions(-Ofast -std=c++11 -fPIC -W -Wall -pedantic -D_GNU_SOURCE)
 
-add_executable(pf-init pf-init.c)
+add_executable(pf-init pf-init.cc)
 
 install(TARGETS pf-init DESTINATION bin)
 
