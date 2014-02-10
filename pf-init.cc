@@ -28,8 +28,9 @@ int main() {
   sigset_t set;
   int status;
 
-  if (getpid() != 1)
+  if (getpid() != 1) {
     return 1;
+  }
 
   sigfillset(&set);
   sigprocmask(SIG_BLOCK, &set, 0);
@@ -44,6 +45,9 @@ int main() {
 
   setsid();
   setpgid(0, 0);
-  return execve("/etc/rc", (char *[]) {"rc", 0}, (char *[]) {0});
+  const char *const argv[] = {"rc", nullptr};
+  const char *const envp[] = {nullptr};
+  return execve("/etc/rc",
+      const_cast<char *const *>(argv), const_cast<char *const *>(envp));
 }
 
