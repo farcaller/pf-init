@@ -24,8 +24,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int main()
-{
+int main() {
   sigset_t set;
   int status;
 
