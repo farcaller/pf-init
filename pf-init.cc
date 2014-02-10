@@ -26,31 +26,25 @@
 
 int main()
 {
-	sigset_t set;
-	int status;
+  sigset_t set;
+  int status;
 
-	if (getpid() != 1)
-		return 1;
+  if (getpid() != 1)
+    return 1;
 
-	sigfillset(&set);
-	sigprocmask(SIG_BLOCK, &set, 0);
+  sigfillset(&set);
+  sigprocmask(SIG_BLOCK, &set, 0);
 
-	if (fork())
-		for (;;)
-			wait(&status);
+  if (fork()) {
+    for (;;) {
+      wait(&status);
+    }
+  }
 
-	sigprocmask(SIG_UNBLOCK, &set, 0);
+  sigprocmask(SIG_UNBLOCK, &set, 0);
 
-	setsid();
-	setpgid(0, 0);
-	return execve("/etc/rc",
-			(char *[])
-			{
-				"rc", 0
-			},
-			(char *[])
-			{
-				0
-			});
+  setsid();
+  setpgid(0, 0);
+  return execve("/etc/rc", (char *[]) {"rc", 0}, (char *[]) {0});
 }
 
